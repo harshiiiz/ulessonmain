@@ -71,11 +71,11 @@ interface FormValues {
   gradeGroup: gradeGroups;
   competitionCategory: string;
   class: string;
-  phoneNumber: number;
+  phoneNumber: string;
   examLocation: ExamLocationenum;
   email: string;
   representativeName: string;
-  representativePhone: number;
+  representativePhone: string;
   schoolLocation: ExamLocationenum;
   name: string;
   //country:string;
@@ -462,7 +462,7 @@ function Regstudent() {
                 {errors.class && "Class is required"}
               </Text>
             </FormControl>
-            <FormControl id="regno" isInvalid={!!errors.phoneNumber}>
+            <FormControl  isInvalid={!!errors.phoneNumber}>
               <FormLabel
                 opacity="0.7"
                 color="#301446"
@@ -473,13 +473,17 @@ function Regstudent() {
                 uLesson Registered Phone Number
               </FormLabel>
               <Input
+              maxLength={10}
                 bg="#F9FAFF"
-                type="number"
+                type="string"
                 {...register("phoneNumber", { required: true })}
               />
-              <Text  color="brand.orange">
-                {errors.phoneNumber?.message }
-              </Text>
+              {errors.phoneNumber && (
+                <FormErrorMessage>
+                  {" "}
+                  {errors.phoneNumber.message}
+                </FormErrorMessage>
+              )}
             </FormControl>
             <FormControl isInvalid={!!errors.examLocation} id="ExamLocation">
               <FormLabel
@@ -716,12 +720,15 @@ function Regstudent() {
               </FormLabel>
               <Input
                 bg="#F9FAFF"
-                type="number"
+                type="string"
                 {...register("representativePhone", { required: true })}
               />
-              <Text  color="brand.orange" >
-                {errors.representativePhone?.message}
-              </Text>
+            {errors.representativePhone && (
+                <FormErrorMessage>
+                  {" "}
+                  {errors.representativePhone.message}
+                </FormErrorMessage>
+              )}
             </FormControl>
           </SimpleGrid>
 
