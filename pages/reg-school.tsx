@@ -443,7 +443,7 @@ function Regschool() {
             </FormControl>
             <FormControl
               h="84px"
-              isInvalid={!!errors?.representativePhone?.message}
+              isInvalid={!!errors.representativePhone}
             >
               <FormLabel
                 opacity="0.7"
@@ -458,19 +458,19 @@ function Regschool() {
               <Input
                 maxLength={10}
                 bg="#F9FAFF"
-                type="number"
+                type="string"
                 {...register("representativePhone", { required: true })}
               />
-              {errors.representativePhone && (
+              
                 <FormErrorMessage
                   mt={"8px"}
                   fontSize="12px"
                   fontFamily={"Mulish"}
                 >
                   {" "}
-                  {errors.representativePhone.message}
+                  {errors?.representativePhone?.message}
                 </FormErrorMessage>
-              )}
+              
             </FormControl>
           </SimpleGrid>
 
@@ -901,7 +901,7 @@ function Regschool() {
                   <FormControl
                     id="ulessonNumber"
                     isInvalid={
-                      !!errors.students?.[index]?.ulessonNumber?.message
+                      !!errors.students?.[index]?.ulessonNumber
                     }
                     h="84px"
                   >
@@ -916,8 +916,9 @@ function Regschool() {
                       Registered uLesson Number
                     </FormLabel>
                     <Input
+                    maxLength={10}
                       bg="#F9FAFF"
-                      type="number"
+                      type="string"
                       {...register(`students.${index}.ulessonNumber`, {
                         required: true,
                       })}
