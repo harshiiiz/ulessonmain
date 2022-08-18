@@ -27,7 +27,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-//import { TriangleDownIcon } from "@chakra-ui/icons";
+
 import { useRouter } from "next/router";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -64,14 +64,14 @@ enum ExamLocationenum {
 const phoneRegExp =
   /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 const schema = yup.object().shape({
-  name: yup.string().required("First name is required"),
+  name: yup.string().required("School name is required"),
   representativeEmail: yup
     .string()
     .email()
-    .required("This is a required field"),
+    .required(" Principal’s Email Address is required"),
   representativePhone: yup
     .string()
-    .required("This is a required field")
+    .required("Principal’s Phone number is required")
     .matches(phoneRegExp, "Phone number is not valid")
     .min(10, "Phone number should be of 10 digits only")
     .max(10, "Phone number should be of 10 digits only"),
@@ -79,8 +79,8 @@ const schema = yup.object().shape({
     .array()
     .of(
       yup.object().shape({
-        firstName: yup.string().required(),
-        lastName: yup.string().required(),
+        firstName: yup.string().required("First name is a required field"),
+        lastName: yup.string().required("Last name is a required field"),
         ulessonNumber: yup
           .string()
           .required("This is a required field")
@@ -161,8 +161,7 @@ function Regschool() {
         headers: { "Content-Type": "application/json" },
       });
       console.log(response);
-      if(response.status==201)
-      router.replace("/congrats-school");
+      if (response.status == 201) router.replace("/congrats-school");
     } catch (error) {
       console.log(error);
     }
@@ -188,7 +187,6 @@ function Regschool() {
       ...watchStudentsArray[index],
     };
   });
-  //const [startDate, setStartDate] = useState<Date | null>();
 
   //console.log(Fields);
 
@@ -235,13 +233,14 @@ function Regschool() {
           >
             School Details
           </Heading>
-          <FormControl isInvalid={!!errors.name} id="name" mt="32px">
+          <FormControl isInvalid={!!errors.name} id="name" mt="32px" h="84px">
             <FormLabel
               opacity="0.7"
               color="#301446"
               fontSize="14px"
               fontFamily={"Mulish"}
               fontWeight="600"
+              mb="8px"
             >
               School Name
             </FormLabel>
@@ -255,9 +254,9 @@ function Regschool() {
               type="text"
               {...register("name", { required: true })}
             />
-            <Text color="brand.orange">
-              {errors.name && "School Name is required"}
-            </Text>
+            <FormErrorMessage mt={"8px"} fontSize="12px" fontFamily={"Mulish"}>
+              {errors.name?.message}
+            </FormErrorMessage>
           </FormControl>
           <SimpleGrid
             columns={[1, null, 3]}
@@ -265,14 +264,14 @@ function Regschool() {
             spacingY="26px"
             mt={{ base: "26px", lg: "32px" }}
           >
-            <FormControl>
+            <FormControl h="84px">
               <FormLabel
-                htmlFor="principal-name"
                 opacity="0.7"
                 color="#301446"
                 fontSize="14px"
                 fontFamily={"Mulish"}
                 fontWeight="600"
+                mb="8px"
               >
                 School Country
               </FormLabel>
@@ -303,6 +302,7 @@ function Regschool() {
               </InputGroup>
             </FormControl>
             <FormControl
+              h="84px"
               id="schoolLocation"
               isInvalid={!!errors.schoolLocation}
             >
@@ -312,6 +312,7 @@ function Regschool() {
                 fontSize="14px"
                 fontFamily={"Mulish"}
                 fontWeight="600"
+                mb="8px"
               >
                 School Location
               </FormLabel>
@@ -346,17 +347,26 @@ function Regschool() {
                   }),
                 }}
               />
-              <FormErrorMessage>
+              <FormErrorMessage
+                mt={"8px"}
+                fontSize="12px"
+                fontFamily={"Mulish"}
+              >
                 {errors?.schoolLocation?.message}
               </FormErrorMessage>
             </FormControl>
-            <FormControl id="examLocation">
+            <FormControl
+              id="examLocation"
+              isInvalid={!!errors.examLocation}
+              h="84px"
+            >
               <FormLabel
                 opacity="0.7"
                 color="#301446"
                 fontSize="14px"
                 fontFamily={"Mulish"}
                 fontWeight="600"
+                mb="8px"
               >
                 Preffered Exam Location
               </FormLabel>
@@ -388,6 +398,13 @@ function Regschool() {
                   }),
                 }}
               />
+              <FormErrorMessage
+                mt={"8px"}
+                fontSize="12px"
+                fontFamily={"Mulish"}
+              >
+                {errors.examLocation?.message}
+              </FormErrorMessage>
             </FormControl>
           </SimpleGrid>
           <SimpleGrid
@@ -399,6 +416,7 @@ function Regschool() {
             <FormControl
               id="representativeEmail"
               isInvalid={!!errors.representativeEmail}
+              h="84px"
             >
               <FormLabel
                 opacity="0.7"
@@ -406,6 +424,7 @@ function Regschool() {
                 fontSize="14px"
                 fontFamily={"Mulish"}
                 fontWeight="600"
+                mb="8px"
               >
                 Principal&apos;s Email Address
               </FormLabel>
@@ -414,15 +433,17 @@ function Regschool() {
                 type="email"
                 {...register("representativeEmail", { required: true })}
               />
-              <Text color="brand.orange">
-                {errors.representativeEmail &&
-                  " Principal’s Email Address is required"}
-              </Text>
+              <FormErrorMessage
+                mt={"8px"}
+                fontSize="12px"
+                fontFamily={"Mulish"}
+              >
+                {errors.representativeEmail?.message}
+              </FormErrorMessage>
             </FormControl>
             <FormControl
-              
+              h="84px"
               isInvalid={!!errors?.representativePhone?.message}
-              
             >
               <FormLabel
                 opacity="0.7"
@@ -430,6 +451,7 @@ function Regschool() {
                 fontSize="14px"
                 fontFamily={"Mulish"}
                 fontWeight="600"
+                mb="8px"
               >
                 Principal&apos;s Phone Number
               </FormLabel>
@@ -440,7 +462,11 @@ function Regschool() {
                 {...register("representativePhone", { required: true })}
               />
               {errors.representativePhone && (
-                <FormErrorMessage>
+                <FormErrorMessage
+                  mt={"8px"}
+                  fontSize="12px"
+                  fontFamily={"Mulish"}
+                >
                   {" "}
                   {errors.representativePhone.message}
                 </FormErrorMessage>
@@ -458,12 +484,14 @@ function Regschool() {
           >
             Student Details
           </Heading>
-          <FormControl mt="50px">
+          <FormControl mt="48px">
             <FormLabel
               htmlFor="email"
               opacity="0.7"
               color="#301446"
               fontSize="14px"
+              fontFamily={"Mulish"}
+              fontWeight="600"
             >
               How many candidates will you enter for the challenge?
             </FormLabel>
@@ -482,7 +510,6 @@ function Regschool() {
             </Button>
 
             <Input
-           
               value={Fields.length}
               h="40px"
               borderRadius="0px"
@@ -519,7 +546,11 @@ function Regschool() {
                   spacingY="26px"
                   mt="24px"
                 >
-                  <FormControl id="firstName">
+                  <FormControl
+                    id="firstName"
+                    isInvalid={!!errors.students?.[index]?.firstName?.message}
+                    h="84px"
+                  >
                     <FormLabel
                       htmlFor="name"
                       opacity="0.7"
@@ -527,6 +558,7 @@ function Regschool() {
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       First Name
                     </FormLabel>
@@ -538,13 +570,19 @@ function Regschool() {
                         required: true,
                       })}
                     />
-                    <Text color="brand.orange">
-                      {errors.students?.[index]?.firstName?.message &&
-                        "First name is required"}
-                    </Text>
-                    {/* && "First name is required"} */}
+                    <FormErrorMessage
+                      mt={"8px"}
+                      fontSize="12px"
+                      fontFamily={"Mulish"}
+                    >
+                      {errors.students?.[index]?.firstName?.message}
+                    </FormErrorMessage>
                   </FormControl>
-                  <FormControl id="lastName">
+                  <FormControl
+                    id="lastName"
+                    isInvalid={!!errors.students?.[index]?.lastName?.message}
+                    h="84px"
+                  >
                     <FormLabel
                       htmlFor="name"
                       opacity="0.7"
@@ -552,6 +590,7 @@ function Regschool() {
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Last Name
                     </FormLabel>
@@ -563,18 +602,26 @@ function Regschool() {
                         required: true,
                       })}
                     />
-                    <Text color="brand.orange">
-                      {errors.students?.[index]?.lastName?.message &&
-                        "last name is required"}
-                    </Text>
+                    <FormErrorMessage
+                      mt={"8px"}
+                      fontSize="12px"
+                      fontFamily={"Mulish"}
+                    >
+                      {errors.students?.[index]?.lastName?.message}
+                    </FormErrorMessage>
                   </FormControl>
-                  <FormControl id="gender">
+                  <FormControl
+                    id="gender"
+                    isInvalid={!!errors.students?.[index]?.gender?.message}
+                    h="84px"
+                  >
                     <FormLabel
                       opacity="0.7"
                       color="#301446"
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Gender
                     </FormLabel>
@@ -611,13 +658,18 @@ function Regschool() {
                       }}
                     />
                   </FormControl>
-                  <FormControl id="dateOfBirth">
+                  <FormControl
+                    id="dateOfBirth"
+                    isInvalid={!!errors.students?.[index]?.dateOfBirth?.message}
+                    h="84px"
+                  >
                     <FormLabel
                       opacity="0.7"
                       color="#301446"
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Date of birth
                     </FormLabel>
@@ -641,9 +693,8 @@ function Regschool() {
                         letterSpacing="-0.01em"
                         color={"#301446"}
                         fontSize="14px"
-                        opacity="0.7"
+                        opacity="1  "
                         p={2}
-                        zIndex="1000000"
                         bg="#F9FAFF"
                       >
                         {" "}
@@ -656,9 +707,6 @@ function Regschool() {
                               onChange={(date: Date) => field.onChange(date)}
                               selected={field.value}
                               dateFormat="dd/MM/yyyy"
-                              // minDate={}
-                              // maxDate={moment().subtract(25, "years")}
-                              // showDisabledMonthNavigation
                               filterDate={(date) =>
                                 date.getFullYear() > 1995 &&
                                 date.getFullYear() < 2015
@@ -677,22 +725,29 @@ function Regschool() {
                   columns={[1, null, 4]}
                   spacingX="26px"
                   spacingY="26px"
-                  mt={{ base: "26px", lg: "15px" }}
+                  mt={{ base: "26px" }}
                 >
-                  <FormControl id="gradeGroup">
+                  <FormControl
+                    id="gradeGroup"
+                    isInvalid={!!errors.students?.[index]?.gradeGroup?.message}
+                    h="84px"
+                  >
                     <FormLabel
                       opacity="0.7"
                       color="#301446"
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Grade Group
                     </FormLabel>
                     <Select
                       options={grades}
                       instanceId="gradeGroup"
-                      {...register(`students.${index}.gradeGroup`, { required: true })}
+                      {...register(`students.${index}.gradeGroup`, {
+                        required: true,
+                      })}
                       onChange={(e: any) =>
                         setValue(`students.${index}.gradeGroup`, e?.value || "")
                       }
@@ -721,22 +776,33 @@ function Regschool() {
                     />
                   </FormControl>
 
-                  <FormControl id="competitionCategory">
+                  <FormControl
+                    id="competitionCategory"
+                    isInvalid={
+                      !!errors.students?.[index]?.competitionCategory?.message
+                    }
+                    h="84px"
+                  >
                     <FormLabel
                       opacity="0.7"
                       color="#301446"
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Competition Category
                     </FormLabel>
                     <Select
                       options={grades}
-                     
-                      {...register(`students.${index}.competitionCategory`, { required: true })}
+                      {...register(`students.${index}.competitionCategory`, {
+                        required: true,
+                      })}
                       onChange={(e: any) =>
-                        setValue(`students.${index}.competitionCategory`, e?.value || "")
+                        setValue(
+                          `students.${index}.competitionCategory`,
+                          e?.value || ""
+                        )
                       }
                       placeholder=" "
                       styles={{
@@ -763,13 +829,18 @@ function Regschool() {
                     />
                   </FormControl>
 
-                  <FormControl id="class">
+                  <FormControl
+                    id="class"
+                    isInvalid={!!errors.students?.[index]?.class?.message}
+                    h="84px"
+                  >
                     <FormLabel
                       opacity="0.7"
                       color="#301446"
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Class
                     </FormLabel>
@@ -827,13 +898,20 @@ function Regschool() {
                       <option value="JuniorSecondary">Junior Secondary</option>
                     </Select> */}
                   </FormControl>
-                  <FormControl id="ulessonNumber">
+                  <FormControl
+                    id="ulessonNumber"
+                    isInvalid={
+                      !!errors.students?.[index]?.ulessonNumber?.message
+                    }
+                    h="84px"
+                  >
                     <FormLabel
                       opacity="0.7"
                       color="#301446"
                       fontSize="14px"
                       fontFamily={"Mulish"}
                       fontWeight="600"
+                      mb="8px"
                     >
                       Registered uLesson Number
                     </FormLabel>
@@ -844,9 +922,13 @@ function Regschool() {
                         required: true,
                       })}
                     />
-                    <Text color="brand.orange">
-                      {errors.students?.[index]?.ulessonNumber?.message }
-                    </Text>
+                    <FormErrorMessage
+                      mt={"8px"}
+                      fontSize="12px"
+                      fontFamily={"Mulish"}
+                    >
+                      {errors.students?.[index]?.ulessonNumber?.message}
+                    </FormErrorMessage>
                   </FormControl>
                 </SimpleGrid>
               </Box>
