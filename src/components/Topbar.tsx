@@ -115,7 +115,7 @@ export const Topbar = () => {
                   fontSize={{ base: "36px", lg: "56px" }}
                   fontWeight="700"
                   fontFamily="'Montserrat',sans-serif"
-                  whiteSpace="nowrap"
+                 
                 >
                   Join the uLesson
                 </Heading>
