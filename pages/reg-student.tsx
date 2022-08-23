@@ -39,6 +39,8 @@ import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+
+
 enum GenderEnum {
   female = "female",
   male = "male",
@@ -154,6 +156,8 @@ function Regstudent() {
     }
     //alert(JSON.stringify(data));
   };
+  const [date, setDate] = useState(new Date());
+
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
@@ -314,6 +318,7 @@ function Regstudent() {
               isInvalid={!!errors.dateOfBirth}
               id="dateOfBirth"
               h="84px"
+              width={'100%'}
             >
               <FormLabel
                 opacity="0.7"
@@ -326,30 +331,38 @@ function Regstudent() {
                 Date of birth
               </FormLabel>
               <InputGroup
-                borderRadius="4px"
-                bg="#F9FAFF"
-                h="40px"
-                border="1px solid #E0E7FF"
-              >
-                <InputLeftAddon
-                  pointerEvents="none"
-                  fontSize="1.2em"
-                  p="12px"
-                  bg="#F9FAFF"
-                >
-                  <Image src="/calender.svg" alt="calender" w={"16px"} />
-                </InputLeftAddon>
-                <FormLabel
+                      borderRadius="4px"
+                      bg="#F9FAFF"
+                      h="40px"
+                     border="1px solid #E0E7FF"
+                    >
+                      <InputLeftAddon
+                        pointerEvents="none"
+                        fontSize="1.2em"
+                        p="12px"
+                        bg="#F9FAFF"
+                        opacity="0.7 "
+                      >
+                        <Image src="/calender.svg" alt="calender" w={"16px"} />
+                      </InputLeftAddon> 
+                {/* <FormLabel
                   fontStyle={"Mulish !important"}
                   fontWeight="600"
                   letterSpacing="-0.01em"
                   color={"#301446"}
                   fontSize="14px"
                   opacity="1"
-                  p={2}
-                  bg="#F9FAFF"
+                  width={'100%'}
+                  p='2 '
+                  mb={0}
+                  border='0px'
+                  
+                  marginInlineEnd='0px !important'
+                  
+                  //bg="#F9FAFF"
                   // zIndex="99999999999999 !important"
-                >
+                > */}
+                 
                   {" "}
                   <Controller
                     name={"dateOfBirth"}
@@ -365,12 +378,14 @@ function Regstudent() {
                         }
                         dropdownMode="select"
                         showYearDropdown
+                        className="input"
                         scrollableYearDropdown
                       />
                     )}
                   />
-                </FormLabel>
-              </InputGroup>
+                {/* </FormLabel> */}
+                </InputGroup> 
+             
             </FormControl>
             <FormControl isInvalid={!!errors.gradeGroup} id="grade" h="84px">
               <FormLabel

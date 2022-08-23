@@ -670,6 +670,7 @@ function Regschool() {
                       fontFamily={"Mulish"}
                       fontWeight="600"
                       mb="8px"
+                    
                     >
                       Date of birth
                     </FormLabel>
@@ -677,17 +678,18 @@ function Regschool() {
                       borderRadius="4px"
                       bg="#F9FAFF"
                       h="40px"
-                      border="1px solid #E0E7FF"
+                     border="1px solid #E0E7FF"
                     >
                       <InputLeftAddon
                         pointerEvents="none"
                         fontSize="1.2em"
                         p="12px"
                         bg="#F9FAFF"
+                        opacity="0.7 "
                       >
                         <Image src="/calender.svg" alt="calender" w={"16px"} />
-                      </InputLeftAddon>
-                      <FormLabel
+                      </InputLeftAddon> 
+                       {/* <FormLabel
                         fontStyle={"Mulish !important"}
                         fontWeight="600"
                         letterSpacing="-0.01em"
@@ -696,9 +698,11 @@ function Regschool() {
                         opacity="1  "
                         p={2}
                         bg="#F9FAFF"
-                      >
+                        width={'100%'}
+                      > */}
                         {" "}
-                        <Controller
+                        
+                         <Controller
                           name={`students.${index}.dateOfBirth`}
                           control={control}
                           render={({ field }) => (
@@ -711,14 +715,15 @@ function Regschool() {
                                 date.getFullYear() > 1995 &&
                                 date.getFullYear() < 2015
                               }
+                              className="input"
                               dropdownMode="select"
                               showYearDropdown
                               scrollableYearDropdown
                             />
                           )}
-                        />
-                      </FormLabel>
-                    </InputGroup>
+                        /> 
+                       {/* </FormLabel>  */}
+                     </InputGroup> 
                   </FormControl>
                 </SimpleGrid>
                 <SimpleGrid
