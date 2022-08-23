@@ -39,8 +39,6 @@ import axios from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-
-
 enum GenderEnum {
   female = "female",
   male = "male",
@@ -87,11 +85,12 @@ const phoneRegExp =
 const schema = yup.object().shape({
   firstName: yup.string().required("First name is a required field"),
   lastName: yup.string().required("Last name is a required field"),
-  phoneNumber: yup.string()
-  .required("This is a required field")
-  .matches(phoneRegExp, "Phone number is not valid")
-  .min(10, "Phone number should be of 10 digits only")
-  .max(10, "Phone number should be of 10 digits only"),
+  phoneNumber: yup
+    .string()
+    .required("This is a required field")
+    .matches(phoneRegExp, "Phone number is not valid")
+    .min(10, "Phone number should be of 10 digits only")
+    .max(10, "Phone number should be of 10 digits only"),
   competitionCategory: yup
     .string()
     .required("Competition Category is a required field"),
@@ -156,8 +155,6 @@ function Regstudent() {
     }
     //alert(JSON.stringify(data));
   };
- 
-
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
@@ -318,7 +315,7 @@ function Regstudent() {
               isInvalid={!!errors.dateOfBirth}
               id="dateOfBirth"
               h="84px"
-              width={'100%'}
+              width={"100%"}
             >
               <FormLabel
                 opacity="0.7"
@@ -331,22 +328,21 @@ function Regstudent() {
                 Date of birth
               </FormLabel>
               <InputGroup
-                      borderRadius="4px"
-                      bg="#F9FAFF"
-                      h="40px"
-                     border="1px solid #E0E7FF"
-                    >
-                      <InputLeftAddon
-                        pointerEvents="none"
-                        fontSize="1.2em"
-                        p="10px 12px"
-                        bg='inherit'
-                        h='38px'
-                       
-                        border={'0px'}
-                      >
-                        <Image src="/calender.svg" alt="calender" w={"16px"} />
-                      </InputLeftAddon> 
+                borderRadius="4px"
+                bg="#F9FAFF"
+                h="40px"
+                border="1px solid #E0E7FF"
+              >
+                <InputLeftAddon
+                  pointerEvents="none"
+                  fontSize="1.2em"
+                  p="10px 12px"
+                  bg="inherit"
+                  h="38px"
+                  border={"0px"}
+                >
+                  <Image src="/calender.svg" alt="calender" w={"16px"} />
+                </InputLeftAddon>
                 {/* <FormLabel
                   fontStyle={"Mulish !important"}
                   fontWeight="600"
@@ -363,31 +359,28 @@ function Regstudent() {
                   
                   //bg="#F9FAFF"
                   // zIndex="99999999999999 !important"
-                > */}
-                 
-                  {" "}
-                  <Controller
-                    name={"dateOfBirth"}
-                    control={control}
-                    render={({ field }) => (
-                      <ReactDatePicker
-                        placeholderText="01/12/2002"
-                        onChange={(date: Date) => field.onChange(date)}
-                        selected={field.value}
-                        dateFormat="dd/MM/yyyy"
-                        filterDate={(date) =>
-                          date.getFullYear() > 1995 && date.getFullYear() < 2015
-                        }
-                        dropdownMode="select"
-                        showYearDropdown
-                        className="input"
-                        scrollableYearDropdown
-                      />
-                    )}
-                  />
+                > */}{" "}
+                <Controller
+                  name={"dateOfBirth"}
+                  control={control}
+                  render={({ field }) => (
+                    <ReactDatePicker
+                      placeholderText="01/12/2002"
+                      onChange={(date: Date) => field.onChange(date)}
+                      selected={field.value}
+                      dateFormat="dd/MM/yyyy"
+                      filterDate={(date) =>
+                        date.getFullYear() > 1995 && date.getFullYear() < 2015
+                      }
+                      dropdownMode="select"
+                      showYearDropdown
+                      className="input"
+                      scrollableYearDropdown
+                    />
+                  )}
+                />
                 {/* </FormLabel> */}
-                </InputGroup> 
-             
+              </InputGroup>
             </FormControl>
             <FormControl isInvalid={!!errors.gradeGroup} id="grade" h="84px">
               <FormLabel
@@ -528,16 +521,15 @@ function Regstudent() {
                 type="string"
                 {...register("phoneNumber", { required: true })}
               />
-              
-                <FormErrorMessage
-                  mt={"8px"}
-                  fontSize="12px"
-                  fontFamily={"Mulish"}
-                >
-                  {" "}
-                  {errors.phoneNumber?.message}
-                </FormErrorMessage>
-             
+
+              <FormErrorMessage
+                mt={"8px"}
+                fontSize="12px"
+                fontFamily={"Mulish"}
+              >
+                {" "}
+                {errors.phoneNumber?.message}
+              </FormErrorMessage>
             </FormControl>
             <FormControl
               isInvalid={!!errors.examLocation}
@@ -661,10 +653,13 @@ function Regstudent() {
                   fontSize="1.2em"
                   p="12px"
                   bg="#F9FAFF"
+                  border={0}
+                  h="38px"
                 >
                   <Image src="/flag.svg" alt="flag" w={"18px"} />
                 </InputLeftAddon>
                 <Input
+                  h="38px"
                   bg="#F9FAFF"
                   _focus={{ border: "none" }}
                   _hover={{ border: "none" }}
@@ -802,7 +797,7 @@ function Regstudent() {
                 Principal&apos;s Phone Number
               </FormLabel>
               <Input
-              maxLength={10}
+                maxLength={10}
                 bg="#F9FAFF"
                 type="string"
                 {...register("representativePhone", { required: true })}

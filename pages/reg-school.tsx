@@ -441,10 +441,7 @@ function Regschool() {
                 {errors.representativeEmail?.message}
               </FormErrorMessage>
             </FormControl>
-            <FormControl
-              h="84px"
-              isInvalid={!!errors.representativePhone}
-            >
+            <FormControl h="84px" isInvalid={!!errors.representativePhone}>
               <FormLabel
                 opacity="0.7"
                 color="#301446"
@@ -461,16 +458,15 @@ function Regschool() {
                 type="string"
                 {...register("representativePhone", { required: true })}
               />
-              
-                <FormErrorMessage
-                  mt={"8px"}
-                  fontSize="12px"
-                  fontFamily={"Mulish"}
-                >
-                  {" "}
-                  {errors?.representativePhone?.message}
-                </FormErrorMessage>
-              
+
+              <FormErrorMessage
+                mt={"8px"}
+                fontSize="12px"
+                fontFamily={"Mulish"}
+              >
+                {" "}
+                {errors?.representativePhone?.message}
+              </FormErrorMessage>
             </FormControl>
           </SimpleGrid>
 
@@ -670,29 +666,26 @@ function Regschool() {
                       fontFamily={"Mulish"}
                       fontWeight="600"
                       mb="8px"
-                    
                     >
                       Date of birth
                     </FormLabel>
                     <InputGroup
                       borderRadius="4px"
                       bg="#F9FAFF"
-                      
                       h="40px"
-                     border="1px solid #E0E7FF"
+                      border="1px solid #E0E7FF"
                     >
                       <InputLeftAddon
                         pointerEvents="none"
                         fontSize="1.2em"
                         p="10px 12px"
-                        bg='inherit'
-                        h='38px'
-                       
-                        border={'0px'}
+                        bg="inherit"
+                        h="38px"
+                        border={"0px"}
                       >
                         <Image src="/calender.svg" alt="calender" w={"16px"} />
-                      </InputLeftAddon> 
-                       {/* <FormLabel
+                      </InputLeftAddon>
+                      {/* <FormLabel
                         fontStyle={"Mulish !important"}
                         fontWeight="600"
                         letterSpacing="-0.01em"
@@ -702,31 +695,29 @@ function Regschool() {
                         p={2}
                         bg="#F9FAFF"
                         width={'100%'}
-                      > */}
-                        {" "}
-                        
-                         <Controller
-                          name={`students.${index}.dateOfBirth`}
-                          control={control}
-                          render={({ field }) => (
-                            <ReactDatePicker
-                              placeholderText="01/12/2002"
-                              onChange={(date: Date) => field.onChange(date)}
-                              selected={field.value}
-                              dateFormat="dd/MM/yyyy"
-                              filterDate={(date) =>
-                                date.getFullYear() > 1995 &&
-                                date.getFullYear() < 2015
-                              }
-                              className="input"
-                              dropdownMode="select"
-                              showYearDropdown
-                              scrollableYearDropdown
-                            />
-                          )}
-                        /> 
-                       {/* </FormLabel>  */}
-                     </InputGroup> 
+                      > */}{" "}
+                      <Controller
+                        name={`students.${index}.dateOfBirth`}
+                        control={control}
+                        render={({ field }) => (
+                          <ReactDatePicker
+                            placeholderText="01/12/2002"
+                            onChange={(date: Date) => field.onChange(date)}
+                            selected={field.value}
+                            dateFormat="dd/MM/yyyy"
+                            filterDate={(date) =>
+                              date.getFullYear() > 1995 &&
+                              date.getFullYear() < 2015
+                            }
+                            className="input"
+                            dropdownMode="select"
+                            showYearDropdown
+                            scrollableYearDropdown
+                          />
+                        )}
+                      />
+                      {/* </FormLabel>  */}
+                    </InputGroup>
                   </FormControl>
                 </SimpleGrid>
                 <SimpleGrid
@@ -908,9 +899,7 @@ function Regschool() {
                   </FormControl>
                   <FormControl
                     id="ulessonNumber"
-                    isInvalid={
-                      !!errors.students?.[index]?.ulessonNumber
-                    }
+                    isInvalid={!!errors.students?.[index]?.ulessonNumber}
                     h="84px"
                   >
                     <FormLabel
@@ -924,7 +913,7 @@ function Regschool() {
                       Registered uLesson Number
                     </FormLabel>
                     <Input
-                    maxLength={10}
+                      maxLength={10}
                       bg="#F9FAFF"
                       type="string"
                       {...register(`students.${index}.ulessonNumber`, {
