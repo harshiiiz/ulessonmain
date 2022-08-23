@@ -677,15 +677,18 @@ function Regschool() {
                     <InputGroup
                       borderRadius="4px"
                       bg="#F9FAFF"
+                      
                       h="40px"
                      border="1px solid #E0E7FF"
                     >
                       <InputLeftAddon
                         pointerEvents="none"
                         fontSize="1.2em"
-                        p="12px"
-                        bg="#F9FAFF"
-                        opacity="0.7 "
+                        p="10px 12px"
+                        bg='inherit'
+                        h='38px'
+                       
+                        border={'0px'}
                       >
                         <Image src="/calender.svg" alt="calender" w={"16px"} />
                       </InputLeftAddon> 

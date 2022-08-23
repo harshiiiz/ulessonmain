@@ -156,7 +156,7 @@ function Regstudent() {
     }
     //alert(JSON.stringify(data));
   };
-  const [date, setDate] = useState(new Date());
+ 
 
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -339,9 +339,11 @@ function Regstudent() {
                       <InputLeftAddon
                         pointerEvents="none"
                         fontSize="1.2em"
-                        p="12px"
-                        bg="#F9FAFF"
-                        opacity="0.7 "
+                        p="10px 12px"
+                        bg='inherit'
+                        h='38px'
+                       
+                        border={'0px'}
                       >
                         <Image src="/calender.svg" alt="calender" w={"16px"} />
                       </InputLeftAddon> 
