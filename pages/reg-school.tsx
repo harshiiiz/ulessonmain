@@ -101,7 +101,7 @@ interface FormValues {
   schoolLocation: ExamLocationenum;
   representativeEmail: string;
   representativeName: string;
-  representativePhone: string;
+  representativePhone: number;
   //schoolContact
   students: {
     firstName: string;
@@ -128,7 +128,14 @@ function Regschool() {
     resolver: yupResolver(schema),
   });
   const router = useRouter();
-  const onSubmit = async (data: any) => {
+  function convert(str: any) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
+  const onSubmit = async (data: any, Fields: any) => {
+    let i = data.students.length;
     try {
       let reqObj = {
         name: data.name,
@@ -138,30 +145,34 @@ function Regschool() {
         representativePhone: data.representativePhone,
         representativeEmail: data.representativeEmail,
         representativeName: "Aman",
-        country: "India",
+        country: "Nigeria",
         contestId: "62bd82a6138c991f5e1f9dba",
+        //   for(let i=0;i<studentarray;i++){
         students: [
           {
-            firstName: "data.firstName",
-            lastName: "data.lastName",
-            gradeGroup: "Junior",
-            gender: "Male",
-            dateOfBirth: "2022-06-16",
-            competitionCategory: "full stack",
-            examLocation: "Lucknow",
+            firstName: data.students[i - 1].firstName,
+            lastName: data.students[i - 1].lastName,
+            gradeGroup:data.students[i - 1].gradeGroup,
+            gender: data.students[i - 1].gender,
+            dateOfBirth:convert(data.students[i - 1].dateOfBirth.toString()),
+            competitionCategory: data.students[i - 1].competitionCategory,
+            examLocation: "Nigeria",
             class: "12",
-            phoneNumber: "+91 7309908905",
+            phoneNumber: data.students[i - 1].ulessonNumber,
           },
         ],
       };
+      console.log(reqObj);
+      //     }
+
       const response = await axios({
         method: "post",
         url: "http://13.235.19.203:8080/school/",
         data: reqObj,
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
-      if (response.status == 201) router.replace("/congrats-school");
+      //  console.log(response);
+      //if (response.status == 201) router.replace("/congrats-school");
     } catch (error) {
       console.log(error);
     }
@@ -169,7 +180,7 @@ function Regschool() {
 
     //alert(JSON.stringify(data));
 
-    //router.replace("/congrats-school");
+    router.replace("/congrats-school");
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -188,7 +199,6 @@ function Regschool() {
     };
   });
 
-  //console.log(Fields);
 
   return (
     <>
@@ -285,7 +295,7 @@ function Regschool() {
                   <Image src="/flag.svg" alt="flag" w={"18px"} />
                 </InputLeftAddon>
                 <Input
-                  bg="#F9FAFF"
+                 
                   _focus={{ border: "none" }}
                   _hover={{ border: "none" }}
                   id="schoolCountry"
@@ -296,7 +306,7 @@ function Regschool() {
                   fontSize="14px"
                   fontFamily={"Mulish"}
                   fontWeight="600"
-                  border="none"
+                 
                   pl="10px"
                 />
               </InputGroup>

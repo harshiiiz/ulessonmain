@@ -117,6 +117,12 @@ function Regstudent() {
   } = useForm<FormValues>({
     resolver: yupResolver(schema),
   });
+  function convert(str: any) {
+    var date = new Date(str),
+      mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+  }
 
   const router = useRouter();
   const onSubmit = async (data: any) => {
@@ -126,7 +132,7 @@ function Regstudent() {
         lastName: data.lastName,
         gradeGroup: data.gradeGroup,
         gender: data.gender,
-        dateOfBirth: "2022-06-16",
+        dateOfBirth: convert(data.dateOfBirth.toString()),
         competitionCategory: data.competitionCategory,
         examLocation: data.examLocation,
         class: data.class,
@@ -135,31 +141,33 @@ function Regstudent() {
           contestId: "62bd82a6138c991f5e1f9dba",
           name: data.name,
           schoolLocation: "Lucknow",
-          country: "India",
-          examLocation: "Lucknow",
-          representativePhone: "+91 9998887770",
-          representativeEmail: "srm@university.com",
-          representativeName: "Jacob",
+          country: "Nigeria",
+          examLocation: data.examLocation,
+          representativePhone: data.representativePhone,
+          representativeEmail: data.email,
+          representativeName: data.representativeName,
         },
       };
+      console.log(reqObj);
+    
       const response = await axios({
         method: "post",
         url: "http://13.235.19.203:8080/student/",
         data: reqObj,
         headers: { "Content-Type": "application/json" },
       });
-      console.log(response);
-      if (response.status == 201) router.replace("/congrats-student");
+    //  console.log(response);
+     
     } catch (error) {
       console.log(error);
     }
+    router.replace("/congrats-student");
     //alert(JSON.stringify(data));
   };
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
-  console.log(errors);
-  const [startDate, setStartDate] = useState(new Date());
+  //console.log(errors);
 
   return (
     <>
