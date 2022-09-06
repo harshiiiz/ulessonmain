@@ -152,9 +152,9 @@ function Regschool() {
           {
             firstName: data.students[i - 1].firstName,
             lastName: data.students[i - 1].lastName,
-            gradeGroup:data.students[i - 1].gradeGroup,
+            gradeGroup: data.students[i - 1].gradeGroup,
             gender: data.students[i - 1].gender,
-            dateOfBirth:convert(data.students[i - 1].dateOfBirth.toString()),
+            dateOfBirth: convert(data.students[i - 1].dateOfBirth.toString()),
             competitionCategory: data.students[i - 1].competitionCategory,
             examLocation: "Nigeria",
             class: "12",
@@ -198,7 +198,6 @@ function Regschool() {
       ...watchStudentsArray[index],
     };
   });
-
 
   return (
     <>
@@ -295,9 +294,6 @@ function Regschool() {
                   <Image src="/flag.svg" alt="flag" w={"18px"} />
                 </InputLeftAddon>
                 <Input
-                 
-                  _focus={{ border: "none" }}
-                  _hover={{ border: "none" }}
                   id="schoolCountry"
                   name="schoolCountry"
                   isReadOnly={true}
@@ -306,8 +302,8 @@ function Regschool() {
                   fontSize="14px"
                   fontFamily={"Mulish"}
                   fontWeight="600"
-                 
                   pl="10px"
+                  pointerEvents={'none'}
                 />
               </InputGroup>
             </FormControl>

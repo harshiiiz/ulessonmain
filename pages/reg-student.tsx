@@ -149,15 +149,14 @@ function Regstudent() {
         },
       };
       console.log(reqObj);
-    
+
       const response = await axios({
         method: "post",
         url: "http://13.235.19.203:8080/student/",
         data: reqObj,
         headers: { "Content-Type": "application/json" },
       });
-    //  console.log(response);
-     
+      //  console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -661,16 +660,13 @@ function Regstudent() {
                   fontSize="1.2em"
                   p="12px"
                   bg="#F9FAFF"
-                  border={0}
                   h="38px"
                 >
                   <Image src="/flag.svg" alt="flag" w={"18px"} />
                 </InputLeftAddon>
                 <Input
                   h="38px"
-                  bg="#F9FAFF"
-                  _focus={{ border: "none" }}
-                  _hover={{ border: "none" }}
+                  //  _hover={{ border: "none" }}
                   id="schoolCountry"
                   name="schoolCountry"
                   isReadOnly={true}
@@ -679,8 +675,8 @@ function Regstudent() {
                   fontSize="14px"
                   fontFamily={"Mulish"}
                   fontWeight="600"
-                  border="none"
                   pl="10px"
+                  pointerEvents={'none'}
                 />
               </InputGroup>
             </FormControl>
